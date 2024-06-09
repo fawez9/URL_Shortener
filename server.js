@@ -10,9 +10,15 @@ mongoose.connect(process.env.MONGODB_URI);
 app.use(bodyParser.json());
 
 app.post("/shorten", async (req, res) => {
-  const { full } = req.body;
+  const { full, short } = req.body;
   try {
-    const shortUrl = await ShortUrl.create({ full });
+    let shortUrl;
+    if (short) {
+      shortUrl = await ShortUrl.create({ full, short });
+    } else {
+      shortUrl = await ShortUrl.create({ full });
+    }
+
     res.json({ "full URL: ": shortUrl.full, "short URL: ": shortUrl.short });
   } catch (err) {
     return res.status(500).json({ error: "failed to shorten URL" });
@@ -29,7 +35,7 @@ app.get("/:short", async (req, res) => {
       return res.status(404).json({ error: "URL not found" });
     }
   } catch (err) {
-    return res.status(500).json({ error: "failed to redirect full URL" });
+    return res.status(500).json({ error: "ERROR ON REDIRECTING" });
   }
 });
 
