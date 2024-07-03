@@ -35,7 +35,8 @@ The URL Shortener project is a web application designed to condense long URLs in
 ```bash
   npm run dev
 ```
-
+## Usage:
+As I mentioned earlier this project is just the backend of the web app u can test it using **Postman** or any other testing tools.
 
     
 ## Contributing
